@@ -1,5 +1,5 @@
 
-SOURCES=$(shell find . -name *.py)
+SOURCES=$(shell find . -name '*.py')
 OUTPUT_PATH=build/plugin.video.ipfs
 
 venv:
@@ -21,7 +21,7 @@ clean:
 build/plugin_video_ipfs.zip: build
 	cd build && zip -r plugin_video_ipfs.zip plugin.video.ipfs
 
-build: $(SOURCES) fanart.jpg icon.png addon.xml
+build: $(SOURCES) fanart.jpg icon.png addon.xml resources/settings.xml
 	mkdir -p $(OUTPUT_PATH)/ipfs
 	cp -r src/*.py $(OUTPUT_PATH)
 	cp -r src/ipfs/*.py $(OUTPUT_PATH)/ipfs
