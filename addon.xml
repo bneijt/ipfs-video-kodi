@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <addon id="plugin.video.ipfs"
-  version="0.0.2"
+  version="0.0.3"
   name="IPFS"
   provider-name="ipfs.video">
 <requires>
@@ -17,7 +17,7 @@
   <assets>
     <icon>icon.png</icon>
     <fanart>fanart.jpg</fanart>
-    <screenshot>resources\screenshot-01.jpg</screenshot>
+    <screenshot>resources/screenshot-01.jpg</screenshot>
   </assets>
 </extension>
 </addon>
