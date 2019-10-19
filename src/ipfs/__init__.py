@@ -12,7 +12,8 @@ class IPFS:
         self._cache = {}
 
     def get(self, path, params):
-        r = requests.get(self._gateway + '/api/v0/dag/get', params=params, timeout=20)
+        url = self._gateway + '/api/v0/dag/get'
+        r = requests.get(url, params=params, timeout=20)
         r.raise_for_status()
         return r
 

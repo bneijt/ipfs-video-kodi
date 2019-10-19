@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 import sys
+import xbmcgui
+import xbmcplugin
 
 try:
     #Python 3
@@ -8,8 +10,6 @@ except ImportError:
     from urllib import urlencode
     from urlparse import parse_qsl
 
-import xbmcgui
-import xbmcplugin
 import ipfs
 
 # Get the plugin url in plugin:// notation.
