@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <settings>
     <category label="5">
-        <setting label="32000" type="text" id="rootCid" default="Qme6h3q6xVasRpwVDwbX2TG8yncywJ8CtWZVkjnxPfMDK5" />
+        <setting label="32000" type="text" id="rootCid" default="QmPZTLTGqdxdJ6hyPWWXGKyQV8xF5AYARZCdysx9WQjeYF" />
         <setting label="32001" type="text" id="ipfsGateway" default="https://ipfs.io" />
     </category>
 </settings>
