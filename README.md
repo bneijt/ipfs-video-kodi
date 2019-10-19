@@ -26,6 +26,4 @@ It has a configurable gateway and a configurable root CID that you can browse.
 
 Source code license: [GPL v.3](http://www.gnu.org/copyleft/gpl.html)
 
-Fanart is from https://pixabay.com/nl/beaded-spinneweb-raagbol-web-dauw-1630493/
-
-Icon is from https://pixabay.com/nl/puzzel-spel-kubus-rubiks-kubus-1243091/
+Fanart is based upon https://pixabay.com/nl/beaded-spinneweb-raagbol-web-dauw-1630493/
