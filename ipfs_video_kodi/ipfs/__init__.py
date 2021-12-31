@@ -13,7 +13,7 @@ class IPFS:
 
     def get(self, path, params):
         url = self._gateway + '/api/v0/dag/get'
-        r = requests.get(url, params=params, timeout=20)
+        r = requests.post(url, params=params, timeout=20)
         r.raise_for_status()
         return r
 
@@ -28,9 +28,8 @@ class IPFS:
             return self._cache[hash]
 
         r = self.get('/api/v0/dag/get', params={"arg": hash})
-        r.raise_for_status()
-
-        entries = list(filter(lambda link: len(link['Name']) > 0 and '/' in link['Cid'], r.json()["links"]))
+        print(r.json())        
+        entries = list(filter(lambda link: len(link['Name']) > 0 and '/' in link['Hash'], r.json()["Links"]))
         self._cache[hash] = entries
         return entries
 
