@@ -6,8 +6,10 @@ import requests
 def via(gateway):
     return IPFS(gateway)
 
+
 def lower_keys(dictList):
     return [{k.lower(): v for k, v in entry.items()} for entry in dictList]
+
 
 class IPFS:
     def __init__(self, gateway):
@@ -20,12 +22,19 @@ class IPFS:
         r = requests.get(url, params=params, timeout=20)
         r.raise_for_status()
         rjson = r.json()
-        return lower_keys(
+        link_list = lower_keys(
             filter(
-                lambda link: len(link["Name"]) > 0 and "/" in link["Hash"],
-                rjson["Links"],
+                lambda link: len(link["Name"]) > 0
+                and "/" in (link.get("Cid") or link["Hash"]),
+                rjson.get("links") or rjson["Links"],
             )
         )
+
+        # Backwards compatibility
+        for i in link_list:
+            if "cid" in i:
+                i["hash"] = i["cid"]
+        return link_list
 
     def list(self, hash):
         """Get the directory content of the given hash"""

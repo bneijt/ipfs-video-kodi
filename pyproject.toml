@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "ipfs-video-kodi"
-version = "0.0.6"
+version = "0.0.7"
 description = "Kodi plugin to view IPFS video files"
 authors = ["Bram Neijt <bram@neijt.nl>"]
 license = "GPLv3"
@@ -12,6 +12,7 @@ requests = "^2.26.0"
 [tool.poetry.dev-dependencies]
 pytest = "^6.2.5"
 black = {version = "^21.12b0", allow-prereleases = true}
+mypy = "^0.930"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

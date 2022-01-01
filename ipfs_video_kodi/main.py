@@ -47,26 +47,32 @@ def list_node(cid):
     # for this type of content.
     xbmcplugin.setContent(_handle, "videos")
     # Get the list of videos in the category.
-    links = _ipfs.list(cid)
+    try:
+        links = _ipfs.list(cid)
+        for link in links:
+            is_folder = len(_ipfs.list(link["hash"]["/"])) > 0
 
-    for link in links:
-        is_folder = len(_ipfs.list(link["hash"]["/"])) > 0
+            list_item = xbmcgui.ListItem(label=link["name"])
+            # Set additional info for the list item.
+            # 'mediatype' is needed for skin to display info for this ListItem correctly.
+            list_item.setInfo("video", {"title": link["name"], "mediatype": "video"})
+            # TODO set thumbnails
+            # list_item.setArt({'thumb': video['thumb'], 'icon': video['thumb'], 'fanart': video['thumb']})
 
-        list_item = xbmcgui.ListItem(label=link["name"])
-        # Set additional info for the list item.
-        # 'mediatype' is needed for skin to display info for this ListItem correctly.
-        list_item.setInfo("video", {"title": link["name"], "mediatype": "video"})
-        # TODO set thumbnails
-        # list_item.setArt({'thumb': video['thumb'], 'icon': video['thumb'], 'fanart': video['thumb']})
+            list_item.setProperty("IsPlayable", ("false" if is_folder else "true"))
 
-        list_item.setProperty("IsPlayable", ("false" if is_folder else "true"))
-
-        url = self_url(action=("list" if is_folder else "play"), cid=link["hash"]["/"])
-        # Add our item to the Kodi virtual folder listing.
-        xbmcplugin.addDirectoryItem(_handle, url, list_item, is_folder)
-    # Add a sort method for the virtual folder items (alphabetically, ignore articles)
-    xbmcplugin.addSortMethod(_handle, xbmcplugin.SORT_METHOD_TITLE)
-    xbmcplugin.endOfDirectory(_handle)
+            url = self_url(
+                action=("list" if is_folder else "play"), cid=link["hash"]["/"]
+            )
+            # Add our item to the Kodi virtual folder listing.
+            xbmcplugin.addDirectoryItem(_handle, url, list_item, is_folder)
+        # Add a sort method for the virtual folder items (alphabetically, ignore articles)
+        xbmcplugin.addSortMethod(_handle, xbmcplugin.SORT_METHOD_TITLE)
+        xbmcplugin.endOfDirectory(_handle)
+    except Exception as e:
+        dialog = xbmcgui.Dialog()
+        dialog.ok("Failed to fetch information", str(e))
+        raise
 
 
 def play_node(cid):
