@@ -13,7 +13,7 @@ class IPFS:
 
     def get(self, path, params):
         url = self._gateway + '/api/v0/dag/get'
-        r = requests.post(url, params=params, timeout=20)
+        r = requests.get(url, params=params, timeout=20)
         r.raise_for_status()
         return r
 
