@@ -50,18 +50,18 @@ def list_node(cid):
     links = _ipfs.list(cid)
 
     for link in links:
-        is_folder = len(_ipfs.list(link["Cid"]["/"])) > 0
+        is_folder = len(_ipfs.list(link["hash"]["/"])) > 0
 
-        list_item = xbmcgui.ListItem(label=link["Name"])
+        list_item = xbmcgui.ListItem(label=link["name"])
         # Set additional info for the list item.
         # 'mediatype' is needed for skin to display info for this ListItem correctly.
-        list_item.setInfo("video", {"title": link["Name"], "mediatype": "video"})
+        list_item.setInfo("video", {"title": link["name"], "mediatype": "video"})
         # TODO set thumbnails
         # list_item.setArt({'thumb': video['thumb'], 'icon': video['thumb'], 'fanart': video['thumb']})
 
         list_item.setProperty("IsPlayable", ("false" if is_folder else "true"))
 
-        url = self_url(action=("list" if is_folder else "play"), cid=link["Cid"]["/"])
+        url = self_url(action=("list" if is_folder else "play"), cid=link["hash"]["/"])
         # Add our item to the Kodi virtual folder listing.
         xbmcplugin.addDirectoryItem(_handle, url, list_item, is_folder)
     # Add a sort method for the virtual folder items (alphabetically, ignore articles)

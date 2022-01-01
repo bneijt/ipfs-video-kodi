@@ -9,7 +9,7 @@ def test_list_directory_should_work():
     a = test_gateway.list("Qme4QjkyZQuFtN2SDhELfXVshMyAEec53jaFQ8kR4maLeV")
     assert len(a) == 1
     assert (
-        a[0]["Name"]
+        a[0]["name"]
         == "Alan Kay at OOPSLA 1997 - The computer revolution hasnt happened yet.webm"
     )
     b = test_gateway.list("QmYHDhsgUgdKSAimguGC92MzQ8VNFHZw3yp6kAHwiXCFLm")
