@@ -1,0 +1,32 @@
+name: main
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  main:
+    env:
+      POETRY_VIRTUALENVS_IN_PROJECT: true
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+      - run: pip install poetry==1.1.7
+      - name: cache venv
+        uses: actions/cache@v2
+        with:
+          path: .venv
+          key: venv-${{ runner.os }}-${{ hashFiles('**/poetry.lock') }}
+      - run: poetry install
+      - name: static code analysis
+        run: |
+          poetry run black --check
+      - run: poetry run pytest
+      - name: build package
+        run: |
+          make clean
+          make package
