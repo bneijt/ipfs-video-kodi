@@ -30,3 +30,8 @@ jobs:
         run: |
           make clean
           make package
+      - uses: actions/upload-artifact@v2
+        with:
+          name: package
+          path: build/plugin_video_ipfs.zip
+          retention-days: 3
