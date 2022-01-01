@@ -4,6 +4,7 @@ OUTPUT_PATH=build/plugin.video.ipfs
 
 clean:
 	rm -rf build
+	rm -rf dist
 
 build/plugin_video_ipfs.zip: build
 	rm -f build/plugin_video_ipfs.zip
