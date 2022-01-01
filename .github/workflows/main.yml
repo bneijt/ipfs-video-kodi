@@ -35,3 +35,4 @@ jobs:
           name: package
           path: build/plugin_video_ipfs.zip
           retention-days: 3
+          if-no-files-found: error
