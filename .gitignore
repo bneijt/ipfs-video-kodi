@@ -3,4 +3,7 @@
 /*.egg-info
 /.pytest_cache
 __pycache__
-/venv
+/.venv
+/dist
+/upload_build.sh
+/.vscode
