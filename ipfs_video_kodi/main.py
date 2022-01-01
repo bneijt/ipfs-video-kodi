@@ -61,17 +61,19 @@ def list_node(cid):
 
             list_item.setProperty("IsPlayable", ("false" if is_folder else "true"))
 
-            url = self_url(action=("list" if is_folder else "play"), cid=link["hash"]["/"])
+            url = self_url(
+                action=("list" if is_folder else "play"), cid=link["hash"]["/"]
+            )
             # Add our item to the Kodi virtual folder listing.
             xbmcplugin.addDirectoryItem(_handle, url, list_item, is_folder)
         # Add a sort method for the virtual folder items (alphabetically, ignore articles)
         xbmcplugin.addSortMethod(_handle, xbmcplugin.SORT_METHOD_TITLE)
         xbmcplugin.endOfDirectory(_handle)
     except Exception as e:
-        dialog = xbmcgui.Dialog()                                                                          
+        dialog = xbmcgui.Dialog()
         dialog.ok("Failed to fetch information", str(e))
         raise
-    
+
 
 def play_node(cid):
     """

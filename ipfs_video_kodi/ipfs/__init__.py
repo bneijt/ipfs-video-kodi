@@ -6,8 +6,10 @@ import requests
 def via(gateway):
     return IPFS(gateway)
 
+
 def lower_keys(dictList):
     return [{k.lower(): v for k, v in entry.items()} for entry in dictList]
+
 
 class IPFS:
     def __init__(self, gateway):
@@ -22,8 +24,9 @@ class IPFS:
         rjson = r.json()
         return lower_keys(
             filter(
-                lambda link: len(link["Name"]) > 0 and "/" in link["Hash"],
-                rjson["Links"],
+                lambda link: len(link["Name"]) > 0
+                and "/" in (link.get("Cid") or link["Hash"]),
+                rjson.get("links") or rjson["Links"],
             )
         )
 
