@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
 import sys
+
 import xbmcgui
 import xbmcplugin
 
 try:
-    #Python 3
-    from urllib.parse import urlencode, parse_qsl
+    # Python 3
+    from urllib.parse import parse_qsl, urlencode
 except ImportError:
     from urllib import urlencode
     from urlparse import parse_qsl
@@ -16,8 +17,9 @@ import ipfs
 _url = sys.argv[0]
 # Get the plugin handle as an integer number.
 _handle = int(sys.argv[1])
-_rootCid = xbmcplugin.getSetting(_handle, 'rootCid')
-_ipfs = ipfs.via(xbmcplugin.getSetting(_handle, 'ipfsGateway'))
+_rootCid = xbmcplugin.getSetting(_handle, "rootCid")
+_ipfs = ipfs.via(xbmcplugin.getSetting(_handle, "ipfsGateway"))
+
 
 def self_url(**kwargs):
     """
@@ -28,7 +30,8 @@ def self_url(**kwargs):
     :return: plugin call URL
     :rtype: str
     """
-    return '{0}?{1}'.format(_url, urlencode(kwargs))
+    return "{0}?{1}".format(_url, urlencode(kwargs))
+
 
 def list_node(cid):
     """
@@ -42,24 +45,23 @@ def list_node(cid):
     xbmcplugin.setPluginCategory(_handle, cid)
     # Set plugin content. It allows Kodi to select appropriate views
     # for this type of content.
-    xbmcplugin.setContent(_handle, 'videos')
+    xbmcplugin.setContent(_handle, "videos")
     # Get the list of videos in the category.
     links = _ipfs.list(cid)
 
     for link in links:
-        is_folder = len(_ipfs.list(link['Cid']['/'])) > 0
+        is_folder = len(_ipfs.list(link["Cid"]["/"])) > 0
 
-        list_item = xbmcgui.ListItem(label=link['Name'])
+        list_item = xbmcgui.ListItem(label=link["Name"])
         # Set additional info for the list item.
         # 'mediatype' is needed for skin to display info for this ListItem correctly.
-        list_item.setInfo('video', {'title': link['Name'],
-                                    'mediatype': 'video'})
+        list_item.setInfo("video", {"title": link["Name"], "mediatype": "video"})
         # TODO set thumbnails
         # list_item.setArt({'thumb': video['thumb'], 'icon': video['thumb'], 'fanart': video['thumb']})
 
-        list_item.setProperty('IsPlayable', ('false' if is_folder else 'true'))
+        list_item.setProperty("IsPlayable", ("false" if is_folder else "true"))
 
-        url = self_url(action=('list' if is_folder else 'play'), cid=link['Cid']['/'])
+        url = self_url(action=("list" if is_folder else "play"), cid=link["Cid"]["/"])
         # Add our item to the Kodi virtual folder listing.
         xbmcplugin.addDirectoryItem(_handle, url, list_item, is_folder)
     # Add a sort method for the virtual folder items (alphabetically, ignore articles)
@@ -88,21 +90,21 @@ def router(paramstring):
     """
     params = dict(parse_qsl(paramstring))
 
-    #Default action
+    # Default action
     if not params:
-        params['action'] = 'list'
-        params['cid'] = _rootCid
+        params["action"] = "list"
+        params["cid"] = _rootCid
 
     # Check the parameters passed to the plugin
-    if params['action'] == 'list':
-        list_node(params['cid'])
-    elif params['action'] == 'play':
-        play_node(params['cid'])
+    if params["action"] == "list":
+        list_node(params["cid"])
+    elif params["action"] == "play":
+        play_node(params["cid"])
     else:
-        raise ValueError('Invalid paramstring: {0}!'.format(paramstring))
+        raise ValueError("Invalid paramstring: {0}!".format(paramstring))
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     # Call the router function and pass the plugin call parameters to it.
     # We use string slicing to trim the leading '?' from the plugin call paramstring
     router(sys.argv[2][1:])
