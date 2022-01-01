@@ -12,7 +12,6 @@ build/plugin_video_ipfs.zip: build
 build: $(SOURCES) fanart.jpg icon.png addon.xml resources/settings.xml
 	poetry build
 	mkdir -p $(OUTPUT_PATH)/ipfs
-	find ipfs_video_kodi -name '__pycache__' -exec rm -rf {} \;
 	tar -xzf dist/ipfs-video-kodi-*.tar.gz -C dist --wildcards '*/ipfs_video_kodi'
 	cp -r dist/*/ipfs_video_kodi/* $(OUTPUT_PATH)
 	cp -r resources $(OUTPUT_PATH)
