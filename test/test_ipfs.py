@@ -2,7 +2,7 @@
 import unittest
 import ipfs_video_kodi.ipfs as ipfs
 
-test_gateway = ipfs.via("http://127.0.0.1:5001")
+test_gateway = ipfs.via("https://ipfs.io")
 
 
 def test_list_directory_should_work():
@@ -12,3 +12,5 @@ def test_list_directory_should_work():
         a[0]["Name"]
         == "Alan Kay at OOPSLA 1997 - The computer revolution hasnt happened yet.webm"
     )
+    b = test_gateway.list("QmYHDhsgUgdKSAimguGC92MzQ8VNFHZw3yp6kAHwiXCFLm")
+    assert len(b) == 3
