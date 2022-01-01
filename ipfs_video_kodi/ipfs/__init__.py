@@ -30,10 +30,10 @@ class IPFS:
             )
         )
 
-        #Backwards compatibility
+        # Backwards compatibility
         for i in link_list:
-            if 'cid' in i:
-                i['hash'] = i['cid']
+            if "cid" in i:
+                i["hash"] = i["cid"]
         return link_list
 
     def list(self, hash):
