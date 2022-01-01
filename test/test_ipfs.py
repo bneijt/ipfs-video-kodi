@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-import unittest
+import pytest
 
 import ipfs_video_kodi.ipfs as ipfs
 
