@@ -22,13 +22,19 @@ class IPFS:
         r = requests.get(url, params=params, timeout=20)
         r.raise_for_status()
         rjson = r.json()
-        return lower_keys(
+        link_list = lower_keys(
             filter(
                 lambda link: len(link["Name"]) > 0
                 and "/" in (link.get("Cid") or link["Hash"]),
                 rjson.get("links") or rjson["Links"],
             )
         )
+
+        #Backwards compatibility
+        for i in link_list:
+            if 'cid' in i:
+                i['hash'] = i['cid']
+        return link_list
 
     def list(self, hash):
         """Get the directory content of the given hash"""
