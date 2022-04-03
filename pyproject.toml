@@ -11,9 +11,13 @@ requests = "^2.26.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.2.5"
-black = {version = "^21.12b0", allow-prereleases = true}
+black = { version = "^21.12b0", allow-prereleases = true }
 mypy = "^0.930"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+[[tool.mypy.overrides]]
+module = ["requests", "xbmcgui", "xbmcplugin"]
+ignore_missing_imports = true

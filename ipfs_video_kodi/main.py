@@ -8,8 +8,9 @@ try:
     # Python 3
     from urllib.parse import parse_qsl, urlencode
 except ImportError:
-    from urllib import urlencode
-    from urlparse import parse_qsl
+    # Python 2
+    from urllib import urlencode  # type: ignore
+    from urlparse import parse_qsl  # type: ignore
 
 import ipfs
 

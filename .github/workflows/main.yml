@@ -25,6 +25,7 @@ jobs:
       - name: static code analysis
         run: |
           poetry run black --check ipfs_video_kodi test
+          poetry run mypy ipfs_video_kodi
       - run: poetry run pytest
       - name: build package
         run: |
