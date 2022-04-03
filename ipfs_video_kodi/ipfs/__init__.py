@@ -52,7 +52,11 @@ class IPFS:
     def list(self, path):
         """Get the directory content of the given path (ipns/hash or plain cid)"""
         assert type(path) == str, "Argument path must be a string"
-        cid = self.resolve_ipns(path[len("/ipns/") :]) if path.startswith("/ipns/") else path
+        cid = (
+            self.resolve_ipns(path[len("/ipns/") :])
+            if path.startswith("/ipns/")
+            else path
+        )
 
         if cid in self._cache:
             if len(self._cache) > MAX_CACHE_SIZE:
