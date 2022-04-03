@@ -14,9 +14,12 @@ The main branch in github is _not_ installable as a kodi package, please use the
 # Viewing your own content
 
 - Install IPFS on your media player
-- Use `ipfs add -r -w yourdirectory` to insert your directory
+- Use `ipfs add -r -w yourdirectory` to insert your directory, remember the resulting CID
 - Configure plugin to have gateway point to `http://localhost:8080`
-- Use the hash of the directory as the root CID in the plugin configuration
+- Enter the CID of the directory as the root CID in the plugin configuration
+- Optionally:
+    - Use `ipfs name publish <cid>` to create an [IPNS](https://docs.ipfs.io/concepts/ipns/#example-ipns-setup-with-cli) record
+    - Enter `ipfs/<resulting ipns url>` as the root CID in the plugin configuration
 
 # Develop
 
