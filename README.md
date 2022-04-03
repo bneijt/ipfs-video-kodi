@@ -23,9 +23,9 @@ The main branch in github is _not_ installable as a kodi package, please use the
 
 # Develop
 
-- `make venv`
-- `make test`
-- `make build`
+- Create venv for development: `poetry install`
+- Run the tests: `poetry run pytest`
+- Build a release package: `make build`
 
 # License information
 
