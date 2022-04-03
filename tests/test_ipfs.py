@@ -1,9 +1,16 @@
 # -*- coding: utf-8 -*-
 import pytest
-
 import ipfs_video_kodi.ipfs as ipfs
 
 test_gateway = ipfs.via("https://ipfs.io")
+
+
+@pytest.mark.skip(reason="ipns link is not maintained")
+def test_list_ipns_should_work():
+    a = test_gateway.list(
+        "/ipns/k51qzi5uqu5dhlmx2xfqsn7f94tq2gp1inr9yu7cm8dsmycdwk2xp6aykqzf5i"
+    )
+    assert len(a) == 3
 
 
 def test_list_directory_should_work():

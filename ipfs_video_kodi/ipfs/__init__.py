@@ -1,6 +1,7 @@
 import random
-
 import requests
+
+MAX_CACHE_SIZE = 100
 
 
 def via(gateway):
@@ -17,7 +18,8 @@ class IPFS:
         self._gateway = gateway
         self._cache = {}
 
-    def get_links(self, path, params):
+    def get_links(self, cid):
+        params = {"arg": cid}
         url = self._gateway + "/api/v0/dag/get"
         r = requests.get(url, params=params, timeout=20)
         r.raise_for_status()
@@ -36,18 +38,35 @@ class IPFS:
                 i["hash"] = i["cid"]
         return link_list
 
-    def list(self, hash):
-        """Get the directory content of the given hash"""
-        assert type(hash) == str
-        if hash in self._cache:
-            if len(self._cache) > 50:
+    def resolve_ipns(self, cid):
+        params = {"arg": cid}
+        url = self._gateway + "/api/v0/name/resolve"
+        print(params)
+        r = requests.get(url, params=params, timeout=20)
+        r.raise_for_status()
+        rjson = r.json()
+        path = rjson.get("Path") or rjson.get("path")
+        assert path.startswith("/ipfs/"), "Should resolve to ipfs path"
+        return path[len("/ipfs/") :]
+
+    def list(self, path):
+        """Get the directory content of the given path (ipns/hash or plain cid)"""
+        assert type(path) == str, "Argument path must be a string"
+        cid = (
+            self.resolve_ipns(path[len("/ipns/") :])
+            if path.startswith("/ipns/")
+            else path
+        )
+
+        if cid in self._cache:
+            if len(self._cache) > MAX_CACHE_SIZE:
                 # Drop 10 keys
                 for k in random.sample(self._cache.keys(), 10):
                     del self._cache[k]
-            return self._cache[hash]
+            return self._cache[cid]
 
-        entries = self.get_links("/api/v0/dag/get", params={"arg": hash})
-        self._cache[hash] = entries
+        entries = self.get_links(cid)
+        self._cache[cid] = entries
         return entries
 
     def link(self, hash):

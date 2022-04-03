@@ -2,6 +2,8 @@
 SOURCES=$(shell find . -name '*.py')
 OUTPUT_PATH=build/plugin.video.ipfs
 
+MY_VAR := $(shell echo whatever)
+
 clean:
 	rm -rf build
 	rm -rf dist
@@ -11,8 +13,7 @@ build/plugin_video_ipfs.zip: build
 	cd build && zip -r plugin_video_ipfs.zip plugin.video.ipfs
 
 build: $(SOURCES) fanart.jpg icon.png addon.xml resources/settings.xml
-	VERSION=$(poetry version --short)
-	sed -i 's/id="plugin.video.ipfs" version="[^"]*"/id="plugin.video.ipfs" version="'${VERSION}'"/' addon.xml
+	sed -i 's/id="plugin.video.ipfs" version="[^"]*"/id="plugin.video.ipfs" version="'$(shell poetry version --short)'"/' addon.xml
 	poetry build
 	mkdir -p $(OUTPUT_PATH)/ipfs
 	tar -xzf dist/ipfs-video-kodi-*.tar.gz -C dist --wildcards '*/ipfs_video_kodi'
