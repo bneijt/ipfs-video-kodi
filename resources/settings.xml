@@ -2,6 +2,6 @@
 <settings>
     <category label="5">
         <setting label="32000" type="text" id="rootCid" default="QmYHDhsgUgdKSAimguGC92MzQ8VNFHZw3yp6kAHwiXCFLm" />
-        <setting label="32001" type="labelenum" id="ipfsGateway" default="https://ipfs.io" values="http://127.0.0.1:8080|https://ipfs.io|https://dweb.link|https://gateway.pinata.cloud" />
+        <setting label="32001" type="labelenum" id="ipfsGateway" default="https://ipfs.io" values="http://127.0.0.1:8080|https://ipfs.io|https://dweb.link|https://gateway.pinata.cloud|https://ipfs.infura.io" />
     </category>
 </settings>

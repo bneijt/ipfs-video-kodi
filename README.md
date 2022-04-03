@@ -9,6 +9,8 @@ It has a configurable gateway and a configurable root CID that you can browse.
 - `make package`
 - Copy the `build/plugin_video_ipfs.zip`
 
+The main branch in github is _not_ installable as a kodi package, please use the [zip from the releases](https://github.com/bneijt/ipfs-video-kodi/releases) if you want to install a zip directly from github.
+
 # Viewing your own content
 
 - Install IPFS on your media player
