@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "ipfs-video-kodi"
-version = "0.0.7"
+version = "0.0.8"
 description = "Kodi plugin to view IPFS video files"
 authors = ["Bram Neijt <bram@neijt.nl>"]
 license = "GPLv3"

@@ -4,6 +4,14 @@ Plugin to browse and play video media from IPFS.
 
 It has a configurable gateway and a configurable root CID that you can browse.
 
+# Installation
+
+Currently the plugin is not part of any repository. You will have to upload a zip and in the add-ons menu choose to install from zip.
+
+- Download the `plugin_video_ipfs.zip` file from the latest release on the [releases page](https://github.com/bneijt/ipfs-video-kodi/releases)
+- Upload the zip file to your media center
+- From the add-ons menu in Kodi choose "install from zip" and point kodi to the plugin_video_ipfs zip file
+
 # Build from source
 
 - `make package`
